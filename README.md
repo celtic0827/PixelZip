@@ -1,20 +1,30 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# PNG2JPG BatchBox
 
-# Run and deploy your AI Studio app
+**High-Performance Client-Side Image Conversion Container**
 
-This contains everything you need to run your app locally.
+PNG2JPG BatchBox is a secure, browser-based tool designed to batch convert PNG images to JPG format and bundle them into a single ZIP archive. 
 
-View your app in AI Studio: https://ai.studio/apps/drive/1ZYEttxAIrxdmVwmE54goryTGSHt8XgAB
+## Features
 
-## Run Locally
+*   **Zero-Upload Privacy:** All image processing happens locally in your browser. No files are ever sent to a server.
+*   **Batch Processing:** Convert multiple files simultaneously with a high-tech dashboard interface.
+*   **Smart ZIP Bundling:** Automatically packages converted files into a flat ZIP archive (no nested directories) for immediate use.
+*   **Customization:**
+    *   Adjust JPG Quality (compression level).
+    *   Set Matte Color (fill color for transparency replacement).
+*   **Cyberpunk UI:** Dark mode interface with neon accents and "glassmorphism" effects.
 
-**Prerequisites:**  Node.js
+## Tech Stack
 
+*   **Core:** React 19, TypeScript
+*   **Styling:** Tailwind CSS (Custom Cyberpunk Theme)
+*   **Processing:** Native Canvas API for image conversion
+*   **Compression:** JSZip for archiving
+*   **Icons:** Lucide React
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## Usage
+
+1.  **Input:** Drag and drop PNG files into the "Drop Zone" or click to browse.
+2.  **Configure:** Adjust the **Quality** slider and select a **Matte Color** for transparency replacement in the Control Panel.
+3.  **Execute:** Click **Execute Batch** to process images.
+4.  **Export:** Once complete, click **Export ZIP Archive** to download your converted images.
