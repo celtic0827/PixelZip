@@ -4,7 +4,17 @@ import { ImageFile, ConversionStatus, ConversionConfig } from './types';
 import { convertPngToJpg, formatBytes } from './utils/imageHelper';
 import Dropzone from './components/Dropzone';
 import FileItem from './components/FileItem';
-import { Settings, Download, RefreshCw, Trash2, Package, FileImage, ShieldCheck, Layers, Box } from 'lucide-react';
+import { Settings, Download, RefreshCw, Trash2, Package, ShieldCheck, Layers, Box } from 'lucide-react';
+
+// Robust JSZip initialization for different ESM environments
+const getZip = () => {
+  if (typeof JSZip === 'function') {
+    return new JSZip();
+  } else if ((JSZip as any).default && typeof (JSZip as any).default === 'function') {
+    return new (JSZip as any).default();
+  }
+  throw new Error("JSZip could not be initialized");
+};
 
 const App: React.FC = () => {
   const [files, setFiles] = useState<ImageFile[]>([]);
@@ -81,21 +91,21 @@ const App: React.FC = () => {
   };
 
   const downloadZip = async () => {
-    const zip = new JSZip();
-    
-    const completedFiles = files.filter(f => f.status === ConversionStatus.COMPLETED && f.convertedBlob);
-    
-    if (completedFiles.length === 0) return;
-
-    completedFiles.forEach(f => {
-      // Change extension from .png to .jpg
-      const fileName = f.file.name.replace(/\.png$/i, '') + '.jpg';
-      if (f.convertedBlob) {
-        zip.file(fileName, f.convertedBlob);
-      }
-    });
-
     try {
+      const zip = getZip();
+      
+      const completedFiles = files.filter(f => f.status === ConversionStatus.COMPLETED && f.convertedBlob);
+      
+      if (completedFiles.length === 0) return;
+
+      completedFiles.forEach(f => {
+        // Change extension from .png to .jpg
+        const fileName = f.file.name.replace(/\.png$/i, '') + '.jpg';
+        if (f.convertedBlob) {
+          zip.file(fileName, f.convertedBlob);
+        }
+      });
+
       const content = await zip.generateAsync({ type: "blob" });
       const url = URL.createObjectURL(content);
       const a = document.createElement("a");
@@ -107,7 +117,7 @@ const App: React.FC = () => {
       URL.revokeObjectURL(url);
     } catch (error) {
       console.error("ZIP generation failed", error);
-      alert("Failed to generate ZIP");
+      alert("Failed to generate ZIP. Please check console for details.");
     }
   };
 
