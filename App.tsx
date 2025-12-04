@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import JSZip from 'jszip';
 import { ImageFile, ConversionStatus, ConversionConfig } from './types';
-import { convertPngToJpg, formatBytes } from './utils/imageHelper';
+import { convertImageToJpg, formatBytes } from './utils/imageHelper';
 import Dropzone from './components/Dropzone';
 import FileItem from './components/FileItem';
 import { Settings, Download, RefreshCw, Trash2, Package, ShieldCheck, Layers, Box } from 'lucide-react';
@@ -68,7 +68,7 @@ const App: React.FC = () => {
       setFiles(prev => prev.map(f => f.id === currentId ? { ...f, status: ConversionStatus.PROCESSING } : f));
 
       try {
-        const jpgBlob = await convertPngToJpg(filesToProcess[i].file, config);
+        const jpgBlob = await convertImageToJpg(filesToProcess[i].file, config);
         
         setFiles(prev => prev.map(f => 
           f.id === currentId ? { 
@@ -99,8 +99,8 @@ const App: React.FC = () => {
       if (completedFiles.length === 0) return;
 
       completedFiles.forEach(f => {
-        // Change extension from .png to .jpg
-        const fileName = f.file.name.replace(/\.png$/i, '') + '.jpg';
+        // Change extension from .png, .jpg, .jpeg to .jpg
+        const fileName = f.file.name.replace(/\.(png|jpe?g)$/i, '') + '.jpg';
         if (f.convertedBlob) {
           zip.file(fileName, f.convertedBlob);
         }
@@ -145,7 +145,7 @@ const App: React.FC = () => {
               </div>
               <div>
                 <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tighter flex flex-col sm:block leading-none">
-                  <span className="text-cyber-dim font-mono text-xl md:text-2xl mr-2 font-normal block sm:inline mb-1 sm:mb-0">PNG2JPG</span>
+                  <span className="text-cyber-dim font-mono text-xl md:text-2xl mr-2 font-normal block sm:inline mb-1 sm:mb-0">IMG2JPG</span>
                   <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyber-primary via-cyan-400 to-cyber-accent">
                     BatchBox
                   </span>

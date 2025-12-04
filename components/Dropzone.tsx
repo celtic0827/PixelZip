@@ -35,7 +35,7 @@ const Dropzone: React.FC<DropzoneProps> = ({ onFilesAdded, disabled, compact = f
     let hasInvalid = false;
 
     Array.from(fileList).forEach(file => {
-      if (file.type === 'image/png') {
+      if (file.type === 'image/png' || file.type === 'image/jpeg') {
         validFiles.push(file);
       } else {
         hasInvalid = true;
@@ -43,7 +43,7 @@ const Dropzone: React.FC<DropzoneProps> = ({ onFilesAdded, disabled, compact = f
     });
 
     if (hasInvalid) {
-      setError('Only PNG files are supported.');
+      setError('Only PNG and JPG files are supported.');
       setTimeout(() => setError(null), 3000);
     }
 
@@ -87,7 +87,7 @@ const Dropzone: React.FC<DropzoneProps> = ({ onFilesAdded, disabled, compact = f
         <input
           type="file"
           multiple
-          accept="image/png"
+          accept="image/png, image/jpeg"
           onChange={handleFileInput}
           disabled={disabled}
           className="absolute inset-0 w-full h-full opacity-0 cursor-pointer disabled:cursor-not-allowed"
@@ -107,7 +107,7 @@ const Dropzone: React.FC<DropzoneProps> = ({ onFilesAdded, disabled, compact = f
           </div>
           <div>
             <h3 className={`font-bold text-cyber-text tracking-wide group-hover:text-cyber-primary transition-colors ${compact ? 'text-sm' : 'text-xl'}`}>
-              {compact ? 'ADD MORE IMAGES' : 'DROP PNG FILES'}
+              {compact ? 'ADD MORE IMAGES' : 'DROP PNG / JPG'}
             </h3>
             {!compact && (
               <p className="text-cyber-dim mt-2 text-sm font-mono uppercase tracking-wider">

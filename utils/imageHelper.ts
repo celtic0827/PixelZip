@@ -1,10 +1,10 @@
 import { ConversionConfig } from '../types';
 
 /**
- * Converts a PNG file (or any image supported by <img>) to a JPG Blob.
+ * Converts an image file (PNG, JPG, etc.) to a JPG Blob.
  * Handles transparency by filling the background with a specified color.
  */
-export const convertPngToJpg = async (
+export const convertImageToJpg = async (
   file: File,
   config: ConversionConfig
 ): Promise<Blob> => {
