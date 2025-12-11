@@ -120,7 +120,7 @@ const Dropzone: React.FC<DropzoneProps> = ({
        if (items && items.length > 0) {
           // Check if we can use webkitGetAsEntry (Chrome/Safari/Edge/Firefox)
           const entries = Array.from(items)
-             .map(item => typeof item.webkitGetAsEntry === 'function' ? item.webkitGetAsEntry() : null)
+             .map(item => typeof (item as any).webkitGetAsEntry === 'function' ? (item as any).webkitGetAsEntry() : null)
              .filter(Boolean);
 
           if (entries.length > 0) {

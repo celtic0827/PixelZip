@@ -295,8 +295,8 @@ const App: React.FC = () => {
                 <Package size={36} strokeWidth={1.5} className="relative z-10" />
               </div>
               <div>
-                <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tighter flex items-center leading-none">
-                  <span className="text-white mr-2 block sm:inline mb-1 sm:mb-0">BATCH</span>
+                <h1 className="text-4xl md:text-5xl font-bold tracking-tighter flex items-center leading-none">
+                  <span className="text-cyber-primary mr-2 block sm:inline mb-1 sm:mb-0 drop-shadow-[0_0_8px_rgba(6,182,212,0.5)]">BATCH</span>
                   <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyber-primary via-cyan-400 to-cyber-accent">
                     BOX
                   </span>
